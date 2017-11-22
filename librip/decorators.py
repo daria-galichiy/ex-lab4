@@ -35,3 +35,16 @@
 # test_4
 # 1
 # 2
+
+def print_result(func_to_decorate):
+    def decorated_func(*args, **kwargs):
+        print(func_to_decorate.__name__)
+        result = func_to_decorate(*args, **kwargs)
+        if type(result) == type(list()):
+            print("\n".join(map(str, result)))
+        elif type(result) == type (dict()):
+            print("\n".join(map(lambda x: "{} = {}".format(x[0], x[1]), result.items())))
+        else:
+            print(result)
+        return result
+    return decorated_func

@@ -1,6 +1,5 @@
 import random
 
-
 # Генератор вычленения полей из массива словарей
 # Пример:
 # goods = [
@@ -12,7 +11,21 @@ import random
 
 def field(items, *args):
     assert len(args) > 0
-    # Необходимо реализовать генератор 
+    if (len(args) == 1):
+        for item in items:
+            val = item.get(args[0])
+            if val is None:
+                continue
+            else:
+                yield val
+    else:
+        for item in items:
+            result = {}
+            for el in item:
+                if (el in args) and (item[el] is not None):
+                    result[el] = item[el]
+            if result != {}:
+                yield result
 
 
 # Генератор списка случайных чисел
@@ -20,5 +33,7 @@ def field(items, *args):
 # gen_random(1, 3, 5) должен выдать примерно 2, 2, 3, 2, 1
 # Hint: реализация занимает 2 строки
 def gen_random(begin, end, num_count):
+    for i in range(num_count):
+        yield random.randint(begin, end)
     pass
     # Необходимо реализовать генератор
